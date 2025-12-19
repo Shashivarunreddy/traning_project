@@ -10,69 +10,100 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './signup.component.css'
 })
 export class SignupComponent {
-  signupForm: FormGroup;
+  form: FormGroup;
   submitted = false;
-  isLoading = false;
-  showPassword = false;
+  loading = false;
+  showPass = false;
+  showConfirmPass = false;
 
   constructor(private fb: FormBuilder, private router: Router) {
-    this.signupForm = this.fb.group({
+    this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       role: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
-    }, { validators: this.passwordMatchValidator() });
+    }, { validators: this.checkPasswordMatch });
   }
 
-  passwordMatchValidator() {
-    return (formGroup: FormGroup) => {
-      const password = formGroup.get('password');
-      const confirmPassword = formGroup.get('confirmPassword');
-      if (password && confirmPassword && password.value !== confirmPassword.value) {
-        confirmPassword.setErrors({ passwordMismatch: true });
-      }
-      return null;
-    };
+  checkPasswordMatch = (formGroup: FormGroup) => {
+    const pass = formGroup.get('password');
+    const confirmPass = formGroup.get('confirmPassword');
+    
+    if (pass && confirmPass && pass.value !== confirmPass.value) {
+      confirmPass.setErrors({ notMatched: true });
+    }
+    return null;
   }
 
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
+  togglePassword() {
+    this.showPass = !this.showPass;
   }
 
-  onSubmit() {
+  toggleConfirmPassword() {
+    this.showConfirmPass = !this.showConfirmPass;
+  }
+
+  submit() {
     this.submitted = true;
-    if (this.signupForm.invalid) return;
+    
+    if (this.form.invalid) {
+      return;
+    }
 
-    this.isLoading = true;
+    this.loading = true;
+
     setTimeout(() => {
-      const formData = this.signupForm.value;
-      localStorage.setItem('user', JSON.stringify({ name: formData.name, email: formData.email, role: formData.role.toLowerCase() }));
-      this.isLoading = false;
+      const data = this.form.value;
       
-      const role = formData.role.toLowerCase();
-      if (role === 'admin') this.router.navigate(['/admin/dashboard']);
-      else if (role === 'manager') this.router.navigate(['/manager/dashboard']);
-      else if (role === 'employee') this.router.navigate(['/employee/dashboard']);
+      localStorage.setItem('user', JSON.stringify({
+        name: data.name,
+        email: data.email,
+        role: data.role.toLowerCase()
+      }));
+
+      this.loading = false;
+      const role = data.role.toLowerCase();
+      
+      if (role === 'admin') {
+        this.router.navigate(['/admin/dashboard']);
+      } else if (role === 'manager') {
+        this.router.navigate(['/manager/dashboard']);
+      } else {
+        this.router.navigate(['/employee/dashboard']);
+      }
     }, 1500);
   }
 
-  getFormControl(name: string) {
-    return this.signupForm.get(name);
+  getControl(fieldName: string) {
+    return this.form.get(fieldName);
   }
 
-  isFieldInvalid(fieldName: string): boolean {
-    const field = this.getFormControl(fieldName);
+  isInvalid(fieldName: string): boolean {
+    const field = this.getControl(fieldName);
     return !!(field && field.invalid && (field.dirty || field.touched || this.submitted));
   }
 
-  getFieldError(fieldName: string): string {
-    const field = this.getFormControl(fieldName);
-    if (!field || !field.errors) return '';
-    if (field.errors['required']) return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
-    if (field.errors['minlength']) return `Min ${field.errors['minlength'].requiredLength} characters`;
-    if (field.errors['email']) return 'Invalid email';
-    if (field.errors['passwordMismatch']) return 'Passwords do not match';
+  getError(fieldName: string): string {
+    const field = this.getControl(fieldName);
+    
+    if (!field || !field.errors) {
+      return '';
+    }
+
+    if (field.errors['required']) {
+      return fieldName.charAt(0).toUpperCase() + fieldName.slice(1) + ' is required';
+    }
+    if (field.errors['minlength']) {
+      return 'Minimum ' + field.errors['minlength'].requiredLength + ' characters needed';
+    }
+    if (field.errors['email']) {
+      return 'Please enter a valid email';
+    }
+    if (field.errors['notMatched']) {
+      return 'Passwords do not match';
+    }
+
     return 'Invalid field';
   }
 }

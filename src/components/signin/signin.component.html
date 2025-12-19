@@ -1,3 +1,60 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-white flex items-center justify-center px-4 py-8">
+  <div class="w-full max-w-md">
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-bold text-blue-600 mb-3">Brainstorm</h1>
+      <p class="text-gray-600">Sign in to share your innovative ideas</p>
+    </div>
 
-<div class="bg-orange-500 h-500 mt-10">
+    <div class="bg-white p-8 border-b-2 border-white">
+      <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-5">
+
+        <!-- Email Field -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+          <input type="email" formControlName="email" placeholder="john@example.com"
+            class="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-600 transition text-sm"
+            [class.border-red-500]="isInvalid('email')" />
+          <span class="text-red-500 text-xs mt-1 block" *ngIf="isInvalid('email')">
+            {{ getError('email') }}
+          </span>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+          <div class="relative">
+            <input [type]="showPass ? 'text' : 'password'" formControlName="password" placeholder="Enter password"
+              class="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-600 transition text-sm pr-8"
+              [class.border-red-500]="isInvalid('password')" />
+            <button type="button" (click)="togglePassword()" tabindex="-1"
+              class="absolute right-0 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-blue-600 p-1">
+              <svg *ngIf="!showPass" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              <svg *ngIf="showPass" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-4.803m5.596-3.856a3.375 3.375 0 11-4.753 4.753m7.538-1.897a3.375 3.375 0 001.946-1.946M19.5 13a8.959 8.959 0 01-1.5 4.75m0 0a8.959 8.959 0 01-7.5 3.75M9 19H4m15-4h5" />
+              </svg>
+            </button>
+          </div>
+          <span class="text-red-500 text-xs mt-1 block" *ngIf="isInvalid('password')">
+            {{ getError('password') }}
+          </span>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 mt-6 transition"
+          [disabled]="loading" [class.opacity-70]="loading">
+          <span *ngIf="!loading">Sign In</span>
+          <span *ngIf="loading">Signing In...</span>
+        </button>
+      </form>
+
+      <div class="text-center mt-6">
+        <p class="text-sm text-gray-600">Don't have an account? <a routerLink="/signup"
+            class="text-blue-600 hover:text-blue-700 font-medium">Sign Up</a></p>
+      </div>
+    </div>
+  </div>
 </div>
