@@ -30,6 +30,11 @@ export const routes: Routes = [
   },
   {
     path: 'employee',
+    loadChildren: () =>
+      import('../roles/employee/employee.routes').then((m) => m.emproutes),
+  },
+  {
+    path: 'employee',
     loadComponent: () =>
       import('../roles/employee/employee.component').then(
         (m) => m.EmployeeComponent
