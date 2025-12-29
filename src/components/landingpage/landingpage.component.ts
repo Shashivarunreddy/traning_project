@@ -28,6 +28,7 @@ export class LandingpageComponent implements OnInit {
       cta: 'Start as Employee',
       route: '/signup',
       color: '#3b82f6',
+      decorated: false
     },
     {
       title: 'Manager',
@@ -44,6 +45,7 @@ export class LandingpageComponent implements OnInit {
       cta: 'Manage as Manager',
       route: '/signup',
       color: '#3b82f6',
+      decorated: true
     },
     {
       title: 'Administrator',
@@ -60,6 +62,7 @@ export class LandingpageComponent implements OnInit {
       cta: 'Manage as Admin',
       route: '/signup',
       color: '#3b82f6',
+      decorated: false
     },
   ];
   constructor(private router: Router) {}

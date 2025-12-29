@@ -1,6 +1,6 @@
 <!-- Navigation Bar -->
 <nav class="sticky top-0 z-100 mx-auto w-full
-         rounded-b-3xl p-6 text-2xl
+         rounded-b-3xl p-5 text-2xl
          bg-white/10 backdrop-blur-xl
          border border-white/20
          shadow-lg shadow-black/20
@@ -8,20 +8,16 @@
          text-black">
   <div class="flex items-center justify-between px-4">
     <!-- Brand (Left) -->
-    <div class="text-4xl md:text-3xl font-semibold tracking-wide select-none">
-      <a routerLink="/"
-          routerLinkActive="active-link"><span>💡</span>Brainstorm</a>
-    </div> -->
 
     <div class="text-2xl md:text-3xl font-semibold tracking-wide select-none">
-  <a routerLink="/" routerLinkActive="active-link" class="flex items-center gap-2">
-    <span>
-      <!-- Load SVG from public folder -->
-      <img src="light-bulb.svg" alt="Lightbulb Icon" class="w-11 h-11" />
-    </span>
-    Brainstorm
-  </a>
-</div>
+      <a routerLink="/" routerLinkActive="active-link" class="flex items-center gap-2">
+        <span>
+          <!-- Load SVG from public folder -->
+          <img src="light-bulb.svg" alt="Lightbulb Icon" class="w-11 h-11" />
+        </span>
+        Brainstorm
+      </a>
+    </div>
 
 
     <!-- Links (Right) -->
@@ -43,7 +39,7 @@
 </nav>
 <div class="bg-white overflow-hidden">
   <!-- Hero Section -->
-<section class="max-w-6xl mx-auto px-8 py-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+  <section class="max-w-6xl mx-auto px-8 py-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
     <!-- Left Content -->
     <div class="flex flex-col gap-6">
@@ -118,64 +114,57 @@
       <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-2">Powerful Features for Everyone</h2>
       <p class="text-lg md:text-xl text-white opacity-90">Everything you need to manage and collaborate on ideas</p>
     </div>
-    <!-- <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
       <div
         class="bg-white rounded-xl p-6 md:p-8 border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1 flex flex-col gap-4">
-        <div class="text-4xl">💬</div>
+
+        <!-- Replace emoji with SVG image -->
+        <div class="flex items-center">
+          <img src="Message.svg" alt="Message Icon" class="w-15 h-15" />
+        </div>
+
         <h3 class="text-xl md:text-2xl font-bold text-gray-900">Real-time Collaboration</h3>
-        <p class="text-gray-700 leading-relaxed grow">Discuss ideas with team members in real-time, gather feedback, and
-          refine concepts together.</p>
-      </div> -->
-
-      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-  <div
-    class="bg-white rounded-xl p-6 md:p-8 border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1 flex flex-col gap-4">
-    
-    <!-- Replace emoji with SVG image -->
-    <div class="flex items-center">
-      <img src="Message.svg" alt="Message Icon" class="w-15 h-15" />
-    </div>
-
-    <h3 class="text-xl md:text-2xl font-bold text-gray-900">Real-time Collaboration</h3>
-    <p class="text-gray-700 leading-relaxed grow">
-      Discuss ideas with team members in real-time, gather feedback, and refine concepts together.
-    </p>
-  </div>
+        <p class="text-gray-700 leading-relaxed grow">
+          Discuss ideas with team members in real-time, gather feedback, and refine concepts together.
+        </p>
+      </div>
 
 
       <div
         class="bg-white rounded-xl p-6 md:p-8 border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1 flex flex-col gap-4">
         <div class="flex items-center">
-      <img src="bargraph.svg" alt="bargraph Icon" class="w-15 h-15" />
-    </div>
+          <img src="bargraph.svg" alt="bargraph Icon" class="w-15 h-15" />
+        </div>
         <h3 class="text-xl md:text-2xl font-bold text-gray-900">Advanced Analytics</h3>
         <p class="text-gray-700 leading-relaxed grow">Track engagement metrics, view idea progress, and gain insights
           with comprehensive dashboards.</p>
       </div>
       <div
         class="bg-white rounded-xl p-6 md:p-8 border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1 flex flex-col gap-4">
-          <img src="Secure.svg" alt="secure Icon" class="w-15 h-15" />
+        <img src="Secure.svg" alt="secure Icon" class="w-15 h-15" />
         <h3 class="text-xl md:text-2xl font-bold text-gray-900">Secure & Reliable</h3>
         <p class="text-gray-700 leading-relaxed grow">Your data is protected with enterprise-grade security and
           encrypted communications.</p>
       </div>
       <div
         class="bg-white rounded-xl p-6 md:p-8 border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1 flex flex-col gap-4">
-          <img src="Trophy.svg" alt="Trophy Icon" class="w-15 h-15" />
+        <img src="Trophy.svg" alt="Trophy Icon" class="w-15 h-15" />
         <h3 class="text-xl md:text-2xl font-bold text-gray-900">Recognition System</h3>
         <p class="text-gray-700 leading-relaxed grow">Celebrate innovation with likes, comments, and recognition for
           outstanding ideas.</p>
       </div>
       <div
         class="bg-white rounded-xl p-6 md:p-8 border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1 flex flex-col gap-4">
-          <img src="Mobile.svg" alt="Mobile Icon" class="w-15 h-15" />
+        <img src="Mobile.svg" alt="Mobile Icon" class="w-15 h-15" />
         <h3 class="text-xl md:text-2xl font-bold text-gray-900">Mobile Ready</h3>
         <p class="text-gray-700 leading-relaxed grow">Access the platform from anywhere, anytime on any device with full
           functionality.</p>
       </div>
       <div
         class="bg-white rounded-xl p-6 md:p-8 border border-gray-200 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1 flex flex-col gap-4">
-          <img src="Setting.svg" alt="Setting Icon" class="w-15 h-15" />
+        <img src="Setting.svg" alt="Setting Icon" class="w-15 h-15" />
         <h3 class="text-xl md:text-2xl font-bold text-gray-900">Easy Integration</h3>
         <p class="text-gray-700 leading-relaxed grow">Seamlessly integrate with your existing tools and workflows for
           maximum productivity.</p>
@@ -194,8 +183,9 @@
         <div
           class="bg-white rounded-xl border-2 border-gray-200 p-6 md:p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col gap-4 relative overflow-hidden"
           [style]="'border-top: 4px solid ' + role.color">
-          <img src={{role.bgv}} alt="Background logo"
-       class="absolute inset-0 w-full h-full object-contain opacity-10 pointer-events-none" />
+
+          <img *ngIf="role.title === 'Manager' && role.bgv" [src]="role.bgv"
+            class="absolute inset-0 w-full h-full object-contain opacity-10 pointer-events-none" />
           <div class="text-5xl"> <img [src]="role.icon" alt="{{ role.title }} icon" class="w-12 h-12" /> </div>
           <h3 class="text-2xl font-bold text-gray-900">{{ role.title }}</h3>
           <p class="text-gray-600 leading-relaxed">{{ role.description }}</p>
@@ -206,15 +196,12 @@
               {{ feature }}
             </li>
           </ul>
-          <button
-  (click)="navigateTo(role.route)"
-  class="btn-role-custom w-full mt-auto py-3 px-4 rounded-lg font-semibold text-white 
+          <button (click)="navigateTo(role.route)" class="btn-role-custom w-full mt-auto py-3 px-4 rounded-lg font-semibold text-white 
          transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 
          focus:outline-none focus:ring-2 focus:ring-offset-2 
-         bg-[#3b82f6] hover:bg-[#2563eb]"
-  [attr.aria-label]="'Navigate to ' + role.title">
-  {{ role.cta }}
-</button>
+         bg-[#3b82f6] hover:bg-[#2563eb]" [attr.aria-label]="'Navigate to ' + role.title">
+            {{ role.cta }}
+          </button>
 
         </div>
       </div>

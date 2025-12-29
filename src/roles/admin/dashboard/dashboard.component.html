@@ -1,18 +1,18 @@
-<div class="admin-dashboard">
-  <header class="dashboard-header">
-    <h1>Admin Dashboard</h1>
-    <p class="subtitle">System Overview & Statistics</p>
+<div class="p-8 max-w-7xl mx-auto">
+  <header class="mb-8">
+    <h1 class="text-4xl font-bold text-gray-900 mb-2 m-0">Admin Dashboard</h1>
+    <p class="text-gray-500 text-base m-0">System Overview & Statistics</p>
   </header>
 
   <!-- Statistics Cards -->
-  <div class="stats-grid">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
     <!-- Users Card -->
-    <div class="stat-card">
-      <div class="stat-icon">👥</div>
-      <div class="stat-content">
-        <h3>Total Users</h3>
-        <div class="stat-number">{{ totalUsers }}</div>
-        <div class="stat-details">
+    <div class="bg-white rounded-xl p-6 shadow-sm flex gap-4 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+      <div class="text-5xl flex-shrink-0">👥</div>
+      <div class="flex-1">
+        <h3 class="text-sm font-semibold text-gray-500 m-0 mb-2 uppercase tracking-wide">Total Users</h3>
+        <div class="text-4xl font-bold text-gray-900 m-0 mb-3">{{ totalUsers }}</div>
+        <div class="flex flex-wrap gap-3 text-xs text-gray-400">
           <span>{{ totalAdmins }} Admins</span>
           <span>{{ totalManagers }} Managers</span>
           <span>{{ totalEmployees }} Employees</span>
@@ -21,12 +21,12 @@
     </div>
 
     <!-- Ideas Card -->
-    <div class="stat-card">
-      <div class="stat-icon">💡</div>
-      <div class="stat-content">
-        <h3>Total Ideas</h3>
-        <div class="stat-number">{{ totalIdeas }}</div>
-        <div class="stat-details">
+    <div class="bg-white rounded-xl p-6 shadow-sm flex gap-4 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+      <div class="text-5xl flex-shrink-0">💡</div>
+      <div class="flex-1">
+        <h3 class="text-sm font-semibold text-gray-500 m-0 mb-2 uppercase tracking-wide">Total Ideas</h3>
+        <div class="text-4xl font-bold text-gray-900 m-0 mb-3">{{ totalIdeas }}</div>
+        <div class="flex flex-wrap gap-3 text-xs text-gray-400">
           <span>{{ draftIdeas }} Draft</span>
           <span>{{ underReviewIdeas }} In Review</span>
           <span>{{ approvedIdeas }} Approved</span>
@@ -35,12 +35,12 @@
     </div>
 
     <!-- Categories Card -->
-    <div class="stat-card">
-      <div class="stat-icon">📁</div>
-      <div class="stat-content">
-        <h3>Categories</h3>
-        <div class="stat-number">{{ totalCategories }}</div>
-        <div class="stat-details">
+    <div class="bg-white rounded-xl p-6 shadow-sm flex gap-4 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+      <div class="text-5xl flex-shrink-0">📁</div>
+      <div class="flex-1">
+        <h3 class="text-sm font-semibold text-gray-500 m-0 mb-2 uppercase tracking-wide">Categories</h3>
+        <div class="text-4xl font-bold text-gray-900 m-0 mb-3">{{ totalCategories }}</div>
+        <div class="flex flex-wrap gap-3 text-xs text-gray-400">
           <span>{{ activeCategories }} Active</span>
           <span>{{ totalCategories - activeCategories }} Inactive</span>
         </div>
@@ -48,12 +48,12 @@
     </div>
 
     <!-- Approval Rate Card -->
-    <div class="stat-card highlight">
-      <div class="stat-icon">✅</div>
-      <div class="stat-content">
-        <h3>Approval Rate</h3>
-        <div class="stat-number">{{ approvalRate }}%</div>
-        <div class="stat-details">
+    <div class="bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-xl p-6 shadow-sm flex gap-4 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5">
+      <div class="text-5xl flex-shrink-0">✅</div>
+      <div class="flex-1">
+        <h3 class="text-sm font-semibold text-white text-opacity-90 m-0 mb-2 uppercase tracking-wide">Approval Rate</h3>
+        <div class="text-4xl font-bold text-white m-0 mb-3">{{ approvalRate }}%</div>
+        <div class="flex flex-wrap gap-3 text-xs text-white text-opacity-80">
           <span>{{ approvedIdeas }} of {{ totalIdeas }} ideas approved</span>
         </div>
       </div>
@@ -61,58 +61,58 @@
   </div>
 
   <!-- Quick Actions -->
-  <div class="quick-actions">
-    <h2>Quick Actions</h2>
-    <div class="action-buttons">
-      <a routerLink="/admin/categories" class="action-btn primary">
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold text-gray-900 m-0 mb-4">Quick Actions</h2>
+    <div class="flex gap-4 flex-wrap">
+      <a routerLink="/admin/categories" class="px-6 py-3.5 rounded-lg font-medium cursor-pointer transition-all duration-200 border-none no-underline inline-flex items-center gap-2 bg-blue-500 text-white hover:bg-blue-600">
         📁 Manage Categories
       </a>
-      <button class="action-btn secondary" disabled title="Coming soon">
+      <button class="px-6 py-3.5 rounded-lg font-medium cursor-pointer transition-all duration-200 border-none bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled title="Coming soon">
         👥 Manage Users
       </button>
-      <button class="action-btn secondary" disabled title="Coming soon">
+      <button class="px-6 py-3.5 rounded-lg font-medium cursor-pointer transition-all duration-200 border-none bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled title="Coming soon">
         📊 Generate Report
       </button>
     </div>
   </div>
 
   <!-- Recent Activity -->
-  <div class="recent-activity">
-    <div class="activity-section">
-      <h2>Recent Ideas</h2>
-      <div class="activity-list" *ngIf="recentIdeas.length > 0; else noIdeas">
-        <div *ngFor="let idea of recentIdeas" class="activity-item">
-          <div class="activity-icon">💡</div>
-          <div class="activity-content">
-            <div class="activity-title">{{ idea.title }}</div>
-            <div class="activity-meta">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div>
+      <h2 class="text-xl font-semibold text-gray-900 m-0 mb-4">Recent Ideas</h2>
+      <div class="bg-white rounded-xl shadow-sm overflow-hidden" *ngIf="recentIdeas.length > 0; else noIdeas">
+        <div *ngFor="let idea of recentIdeas" class="flex gap-4 p-4 border-b border-gray-100 transition-colors duration-200 hover:bg-gray-50">
+          <div class="text-2xl flex-shrink-0">💡</div>
+          <div class="flex-1 min-w-0">
+            <div class="font-medium text-gray-900 mb-1 overflow-hidden text-ellipsis whitespace-nowrap">{{ idea.title }}</div>
+            <div class="flex gap-3 items-center text-xs">
               <span [class]="getStatusClass(idea.status)">{{ idea.status }}</span>
-              <span class="activity-date">{{ idea.submittedDate | date: 'short' }}</span>
+              <span class="text-gray-500">{{ idea.submittedDate | date: 'short' }}</span>
             </div>
           </div>
         </div>
       </div>
       <ng-template #noIdeas>
-        <p class="no-data">No ideas yet</p>
+        <p class="p-8 text-center text-gray-400">No ideas yet</p>
       </ng-template>
     </div>
 
-    <div class="activity-section">
-      <h2>Recent Users</h2>
-      <div class="activity-list" *ngIf="recentUsers.length > 0; else noUsers">
-        <div *ngFor="let user of recentUsers" class="activity-item">
-          <div class="activity-icon">👤</div>
-          <div class="activity-content">
-            <div class="activity-title">{{ user.name }}</div>
-            <div class="activity-meta">
+    <div>
+      <h2 class="text-xl font-semibold text-gray-900 m-0 mb-4">Recent Users</h2>
+      <div class="bg-white rounded-xl shadow-sm overflow-hidden" *ngIf="recentUsers.length > 0; else noUsers">
+        <div *ngFor="let user of recentUsers" class="flex gap-4 p-4 border-b border-gray-100 transition-colors duration-200 hover:bg-gray-50">
+          <div class="text-2xl flex-shrink-0">👤</div>
+          <div class="flex-1 min-w-0">
+            <div class="font-medium text-gray-900 mb-1 overflow-hidden text-ellipsis whitespace-nowrap">{{ user.name }}</div>
+            <div class="flex gap-3 items-center text-xs">
               <span [class]="getRoleClass(user.role)">{{ user.role }}</span>
-              <span class="activity-detail">{{ user.department }}</span>
+              <span class="text-gray-500">{{ user.department }}</span>
             </div>
           </div>
         </div>
       </div>
       <ng-template #noUsers>
-        <p class="no-data">No users yet</p>
+        <p class="p-8 text-center text-gray-400">No users yet</p>
       </ng-template>
     </div>
   </div>

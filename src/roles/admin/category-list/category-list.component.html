@@ -1,63 +1,69 @@
-<div class="category-management">
-  <div class="header">
-    <h2>Category Management</h2>
-    <button class="btn btn-primary" (click)="openAddForm()">
+<div class="p-8 max-w-5xl mx-auto">
+  <div class="flex justify-between items-center mb-8">
+    <h2 class="text-3xl font-bold text-gray-800 m-0">Category Management</h2>
+    <button class="px-4 py-2 border-none rounded-md font-medium cursor-pointer transition-all duration-200 text-sm bg-blue-500 text-white hover:bg-blue-600" (click)="openAddForm()">
       + Add Category
     </button>
   </div>
 
-  <div class="category-table" *ngIf="categories.length > 0; else emptyState">
-    <table>
-      <thead>
+  <div class="bg-white rounded-lg shadow-sm overflow-hidden" *ngIf="categories.length > 0; else emptyState">
+    <table class="w-full border-collapse">
+      <thead class="bg-gray-50 border-b border-gray-200">
         <tr>
-          <th>Category</th>
-          <th>Description</th>
-          <th>Status</th>
-          <th>Actions</th>
+          <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Category</th>
+          <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Description</th>
+          <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Status</th>
+          <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let category of categories">
-          <td>
-            <div class="category-name">
-              <span class="icon">{{ category.icon }}</span>
+        <tr *ngFor="let category of categories" class="hover:bg-gray-50">
+          <td class="px-4 py-4 border-b border-gray-100 text-sm">
+            <div class="flex items-center gap-2 font-medium text-gray-900">
+              <span class="text-xl">{{ category.icon }}</span>
               <span>{{ category.name }}</span>
             </div>
           </td>
-          <td>{{ category.description || "No description" }}</td>
-          <td>
+          <td class="px-4 py-4 border-b border-gray-100 text-sm">{{ category.description || "No description" }}</td>
+          <td class="px-4 py-4 border-b border-gray-100 text-sm">
             <span
-              class="status-badge"
-              [class.active]="category.isActive"
-              [class.inactive]="!category.isActive"
+              [class.bg-emerald-100]="category.isActive"
+              [class.text-emerald-900]="category.isActive"
+              [class.bg-red-100]="!category.isActive"
+              [class.text-red-900]="!category.isActive"
+              class="inline-block px-3 py-1 rounded-full text-xs font-medium"
             >
               {{ category.isActive ? "Active" : "Inactive" }}
             </span>
           </td>
-          <td class="actions">
-            <button
-              class="btn btn-sm btn-secondary"
-              (click)="openEditForm(category)"
-              title="Edit category"
-            >
-              ✏️ Edit
-            </button>
-            <button
-              class="btn btn-sm"
-              [class.btn-warning]="category.isActive"
-              [class.btn-success]="!category.isActive"
-              (click)="toggleStatus(category)"
-              title="Toggle status"
-            >
-              {{ category.isActive ? "🔒 Deactivate" : "✅ Activate" }}
-            </button>
-            <button
-              class="btn btn-sm btn-danger"
-              (click)="deleteCategory(category)"
-              title="Delete category"
-            >
-              🗑️ Delete
-            </button>
+          <td class="px-4 py-4 border-b border-gray-100 text-sm">
+            <div class="flex gap-2">
+              <button
+                class="px-3 py-1.5 text-xs bg-gray-500 text-white hover:bg-gray-600 border-none rounded-md font-medium cursor-pointer transition-all duration-200"
+                (click)="openEditForm(category)"
+                title="Edit category"
+              >
+                ✏️ Edit
+              </button>
+              <button
+                [class.bg-amber-500]="category.isActive"
+                [class.hover:bg-amber-600]="category.isActive"
+                [class.bg-emerald-500]="!category.isActive"
+                [class.hover:bg-emerald-600]="!category.isActive"
+                class="px-3 py-1.5 text-xs text-white border-none rounded-md font-medium cursor-pointer transition-all duration-200"
+                (click)="toggleStatus(category)"
+                title="Toggle status"
+              >
+                {{ category.isActive ? "🔒 Deactivate" : "✅ Activate" }}
+              </button>
+              <button
+                class="px-3 py-1.5 text-xs bg-red-500 text-white hover:bg-red-600 border-none rounded-md font-medium cursor-pointer transition-all duration-200"
+                (click)="deleteCategory(category)"
+                title="Delete category"
+              >
+                🗑️ Delete
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -65,15 +71,15 @@
   </div>
 
   <ng-template #emptyState>
-    <div class="empty-state">
-      <p>📋 No categories found</p>
-      <p class="subtitle">Click "Add Category" to create your first category</p>
+    <div class="text-center p-16 bg-white rounded-lg shadow-sm">
+      <p class="text-lg text-gray-500 my-2">📋 No categories found</p>
+      <p class="text-sm text-gray-400">Click "Add Category" to create your first category</p>
     </div>
   </ng-template>
 
   <!-- Category Form Modal -->
-  <div class="modal-overlay" *ngIf="showForm" (click)="closeForm()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" *ngIf="showForm" (click)="closeForm()">
+    <div class="bg-white rounded-lg max-w-md w-11/12 max-h-90vh overflow-y-auto" (click)="$event.stopPropagation()">
       <app-category-form
         [category]="editingCategory"
         (saved)="onFormSaved()"
