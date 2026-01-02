@@ -1,140 +1,189 @@
-<div class="min-h-screen bg-linear-to-br from-blue-50 to-white flex items-center justify-center px-4 py-8">
-  <div class="w-full max-w-md">
-    <div class="text-center mb-10">
-      <h1 class="text-4xl font-bold text-blue-600 mb-3">Brainstorm</h1>
-      <p class="text-gray-600">Share your innovative ideas and drive change</p>
-    </div>
 
-    <div class="bg-white p-8 border-b-2 border-white">
-      <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-5">
+<!-- Page Background (uniform for the whole page) -->
+<div class="h-screen w-screen overflow-hidden bg-linear-to-br from-[#B1C9EF] to-white">
 
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-          <input type="text" formControlName="name" placeholder="John Doe"
-            class="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-600 transition text-sm"
-            [class.border-red-500]="isInvalid('name')" />
-          <span class="text-red-500 text-xs mt-1 block" *ngIf="isInvalid('name')">
-            {{ getError('name') }}
-          </span>
-        </div>
+  <!-- Responsive grid: single column on mobile, two columns on large screens -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 h-full">
 
+    <!-- LEFT COLUMN: Heading + Illustration -->
+    <div class="flex flex-col h-full">
+      <!-- Header -->
+      <div class="text-center mt-6 lg:text-left lg:pl-30 px-6">
+        <h1 class="text-4xl lg:text-5xl font-bold text-[#0b67e8] mb-1 pl-20">Brainstorm</h1>
+        <p class="text-blue-500 text-lg lg:text-xl">Share your innovative ideas and drive change</p>
+      </div>
 
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-          <input type="email" formControlName="email" placeholder="john@example.com"
-            class="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-600 transition text-sm"
-            [class.border-red-500]="isInvalid('email')" />
-          <span class="text-red-500 text-xs mt-1 block" *ngIf="isInvalid('email')">
-            {{ getError('email') }}
-          </span>
-        </div>
-
-
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Role</label>
-          <select formControlName="role"
-            class="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-600 transition text-sm bg-white"
-            [class.border-red-500]="isInvalid('role')">
-            <option value="" disabled>Select your role</option>
-            <option value="Employee">Employee</option>
-            <option value="Manager">Manager</option>
-            <option value="Admin">Admin</option>
-          </select>
-          <span class="text-red-500 text-xs mt-1 block" *ngIf="isInvalid('role')">
-            {{ getError('role') }}
-          </span>
-        </div>
-
-
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-          <div class="relative">
-            <input [type]="showPass ? 'text' : 'password'" formControlName="password" placeholder="Enter password"
-              class="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-600 transition text-sm pr-8"
-              [class.border-red-500]="isInvalid('password')" />
-            <button type="button" (click)="togglePassword()" tabindex="-1"
-              class="absolute right-0 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-blue-600 p-1">
-              <svg *ngIf="!showPass" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                  <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M0 8L3.07945 4.30466C4.29638 2.84434 6.09909 2 8 2C9.90091 2 11.7036 2.84434 12.9206 4.30466L16 8L12.9206 11.6953C11.7036 13.1557 9.90091 14 8 14C6.09909 14 4.29638 13.1557 3.07945 11.6953L0 8ZM8 11C9.65685 11 11 9.65685 11 8C11 6.34315 9.65685 5 8 5C6.34315 5 5 6.34315 5 8C5 9.65685 6.34315 11 8 11Z"
-                    fill="#000000"></path>
-                </g>
-              </svg>
-
-
-              <svg *ngIf="showPass" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                  <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M16 16H13L10.8368 13.3376C9.96488 13.7682 8.99592 14 8 14C6.09909 14 4.29638 13.1557 3.07945 11.6953L0 8L3.07945 4.30466C3.14989 4.22013 3.22229 4.13767 3.29656 4.05731L0 0H3L16 16ZM5.35254 6.58774C5.12755 7.00862 5 7.48941 5 8C5 9.65685 6.34315 11 8 11C8.29178 11 8.57383 10.9583 8.84053 10.8807L5.35254 6.58774Z"
-                    fill="#000000"></path>
-                  <path
-                    d="M16 8L14.2278 10.1266L7.63351 2.01048C7.75518 2.00351 7.87739 2 8 2C9.90091 2 11.7036 2.84434 12.9206 4.30466L16 8Z"
-                    fill="#000000"></path>
-                </g>
-              </svg>
-            </button>
-          </div>
-          <span class="text-red-500 text-xs mt-1 block" *ngIf="isInvalid('password')">
-            {{ getError('password') }}
-          </span>
-        </div>
-
-
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
-          <div class="relative">
-            <input [type]="showConfirmPass ? 'text' : 'password'" formControlName="confirmPassword"
-              placeholder="Confirm password"
-              class="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-600 transition text-sm pr-8"
-              [class.border-red-500]="isInvalid('confirmPassword')" />
-            <button type="button" (click)="toggleConfirmPassword()" tabindex="-1"
-              class="absolute right-0 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-blue-600 p-1">
-
-              <svg *ngIf="!showConfirmPass" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                  <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M0 8L3.07945 4.30466C4.29638 2.84434 6.09909 2 8 2C9.90091 2 11.7036 2.84434 12.9206 4.30466L16 8L12.9206 11.6953C11.7036 13.1557 9.90091 14 8 14C6.09909 14 4.29638 13.1557 3.07945 11.6953L0 8ZM8 11C9.65685 11 11 9.65685 11 8C11 6.34315 9.65685 5 8 5C6.34315 5 5 6.34315 5 8C5 9.65685 6.34315 11 8 11Z"
-                    fill="#000000"></path>
-                </g>
-              </svg>
-              <svg *ngIf="showConfirmPass" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                  <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M16 16H13L10.8368 13.3376C9.96488 13.7682 8.99592 14 8 14C6.09909 14 4.29638 13.1557 3.07945 11.6953L0 8L3.07945 4.30466C3.14989 4.22013 3.22229 4.13767 3.29656 4.05731L0 0H3L16 16ZM5.35254 6.58774C5.12755 7.00862 5 7.48941 5 8C5 9.65685 6.34315 11 8 11C8.29178 11 8.57383 10.9583 8.84053 10.8807L5.35254 6.58774Z"
-                    fill="#000000"></path>
-                  <path
-                    d="M16 8L14.2278 10.1266L7.63351 2.01048C7.75518 2.00351 7.87739 2 8 2C9.90091 2 11.7036 2.84434 12.9206 4.30466L16 8Z"
-                    fill="#000000"></path>
-                </g>
-              </svg>
-            </button>
-          </div>
-          <span class="text-red-500 text-xs mt-1 block" *ngIf="isInvalid('confirmPassword')">
-            {{ getError('confirmPassword') }}
-          </span>
-        </div>
-
-        
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 mt-6 transition"
-          [disabled]="loading" [class.opacity-70]="loading">
-          <span *ngIf="!loading">Create Account</span>
-          <span *ngIf="loading">Creating...</span>
-        </button>
-      </form>
-
-      <div class="text-center mt-6">
-        <p class="text-sm text-gray-600">Already have an account? <a routerLink="/signin"
-            class="text-blue-600 hover:text-blue-700 font-medium">Sign In</a></p>
+      <!-- Illustration (constrained to avoid overflow) -->
+      <div class="relative rounded-xl overflow-hidden justify-self-start px-6 lg:px-16 mt-6">
+        <img
+          src="signup_logo.png"
+          alt="Person working on laptop illustration"
+          class="w-full h-auto max-h-screen object-contain"
+          loading="lazy"
+        />
       </div>
     </div>
+
+    <!-- RIGHT COLUMN: Blended Sign Up Form (Reactive) -->
+    <div class="flex items-start justify-start px-6 lg:px-10 pb-10 pt-4 lg:pt-8">
+      <div class="bg-white/30 backdrop-blur-sm border border-white/30 shadow-sm rounded-xl p-6 w-full max-w-md">
+
+        <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+          <h2 class="text-xl lg:text-2xl font-semibold text-[#0b67e8] mb-4">Create your account</h2>
+
+          <!-- Full Name -->
+          <div>
+            <label class="block text-sm font-medium text-[#395886] mb-1.5">Full Name</label>
+            <input
+              type="text"
+              formControlName="name"
+              placeholder="John Doe"
+              class="w-full px-3 py-2 bg-transparent border-b-2 border-[#D5DEEF] focus:outline-none focus:border-[#638ECB] text-sm placeholder-[#395886]/60"
+              [class.border-red-500]="isInvalid('name')"
+              [attr.aria-invalid]="isInvalid('name') ? 'true' : null"
+            />
+            <span class="text-red-500 text-xs mt-1 block" *ngIf="isInvalid('name')">
+              {{ getError('name') }}
+            </span>
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label class="block text-sm font-medium text-[#395886] mb-1.5">Email</label>
+            <input
+              type="email"
+              formControlName="email"
+              placeholder="john@example.com"
+              class="w-full px-3 py-2 bg-transparent border-b-2 border-[#D5DEEF] focus:outline-none focus:border-[#638ECB] text-sm placeholder-[#395886]/60"
+              [class.border-red-500]="isInvalid('email')"
+              [attr.aria-invalid]="isInvalid('email') ? 'true' : null"
+            />
+            <span class="text-red-500 text-xs mt-1 block" *ngIf="isInvalid('email')">
+              {{ getError('email') }}
+            </span>
+          </div>
+
+          <!-- Role (Horizontal Radio Buttons) -->
+          <div>
+            <span class="block text-sm font-medium text-[#395886] mb-1.5">Role</span>
+            <div class="flex flex-row flex-wrap gap-6">
+              <label class="inline-flex items-center gap-2">
+                <input type="radio" name="role" formControlName="role" value="Employee" class="h-4 w-4 accent-[#638ECB]" />
+                <span class="text-sm text-[#395886]">Employee</span>
+              </label>
+              <label class="inline-flex items-center gap-2">
+                <input type="radio" name="role" formControlName="role" value="Manager" class="h-4 w-4 accent-[#638ECB]" />
+                <span class="text-sm text-[#395886]">Manager</span>
+              </label>
+              <label class="inline-flex items-center gap-2">
+                <input type="radio" name="role" formControlName="role" value="Admin" class="h-4 w-4 accent-[#638ECB]" />
+                <span class="text-sm text-[#395886]">Admin</span>
+              </label>
+            </div>
+            <span class="text-red-500 text-xs mt-1 block" *ngIf="isInvalid('role')">
+              {{ getError('role') }}
+            </span>
+          </div>
+
+          <!-- Password -->
+          <div>
+            <label class="block text-sm font-medium text-[#395886] mb-1.5">Password</label>
+            <div class="relative">
+              <input
+                [type]="showPass ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="Enter password"
+                class="w-full px-3 py-2 bg-transparent border-b-2 border-[#D5DEEF] focus:outline-none focus:border-[#638ECB] text-sm placeholder-[#395886]/60 pr-10"
+                [class.border-red-500]="isInvalid('password')"
+                [attr.aria-invalid]="isInvalid('password') ? 'true' : null"
+              />
+              <button
+                type="button"
+                (click)="togglePassword()"
+                tabindex="-1"
+                class="absolute right-0 top-1/2 -translate-y-1/2 text-[#395886]/70 hover:text-[#638ECB] p-1"
+                aria-label="Toggle password visibility"
+              >
+                <!-- Eye icons -->
+                <svg *ngIf="!showPass" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M0 8L3.07945 4.30466C4.29638 2.84434 6.09909 2 8 2C9.90091 2 11.7036 2.84434 12.9206 4.30466L16 8L12.9206 11.6953C11.7036 13.1557 9.90091 14 8 14C6.09909 14 4.29638 13.1557 3.07945 11.6953L0 8ZM8 11C9.65685 11 11 9.65685 11 8C11 6.34315 9.65685 5 8 5C6.34315 5 5 6.34315 5 8C5 9.65685 6.34315 11 8 11Z"
+                    fill="currentColor"></path>
+                </svg>
+                <svg *ngIf="showPass" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M16 16H13L10.8368 13.3376C9.96488 13.7682 8.99592 14 8 14C6.09909 14 4.29638 13.1557 3.07945 11.6953L0 8L3.07945 4.30466C3.14989 4.22013 3.22229 4.13767 3.29656 4.05731L0 0H3L16 16ZM5.35254 6.58774C5.12755 7.00862 5 7.48941 5 8C5 9.65685 6.34315 11 8 11C8.29178 11 8.57383 10.9583 8.84053 10.8807L5.35254 6.58774Z"
+                    fill="currentColor"></path>
+                  <path d="M16 8L14.2278 10.1266L7.63351 2.01048C7.75518 2.00351 7.87739 2 8 2C9.90091 2 11.7036 2.84434 12.9206 4.30466L16 8Z"
+                    fill="currentColor"></path>
+                </svg>
+              </button>
+            </div>
+            <span class="text-red-500 text-xs mt-1 block" *ngIf="isInvalid('password')">
+              {{ getError('password') }}
+            </span>
+          </div>
+
+          <!-- Confirm Password -->
+          <div>
+            <label class="block text-sm font-medium text-[#395886] mb-1.5">Confirm Password</label>
+            <div class="relative">
+              <input
+                [type]="showConfirmPass ? 'text' : 'password'"
+                formControlName="confirmPassword"
+                placeholder="Confirm password"
+                class="w-full px-3 py-2 bg-transparent border-b-2 border-[#D5DEEF] focus:outline-none focus:border-[#638ECB] text-sm placeholder-[#395886]/60 pr-10"
+                [class.border-red-500]="isInvalid('confirmPassword')"
+                [attr.aria-invalid]="isInvalid('confirmPassword') ? 'true' : null"
+              />
+              <button
+                type="button"
+                (click)="toggleConfirmPassword()"
+                tabindex="-1"
+                class="absolute right-0 top-1/2 -translate-y-1/2 text-[#395886]/70 hover:text-[#638ECB] p-1"
+                aria-label="Toggle confirm password visibility"
+              >
+                <!-- Eye icons -->
+                <svg *ngIf="!showConfirmPass" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M0 8L3.07945 4.30466C4.29638 2.84434 6.09909 2 8 2C9.90091 2 11.7036 2.84434 12.9206 4.30466L16 8L12.9206 11.6953C11.7036 13.1557 9.90091 14 8 14C6.09909 14 4.29638 13.1557 3.07945 11.6953L0 8ZM8 11C9.65685 11 11 9.65685 11 8C11 6.34315 9.65685 5 8 5C6.34315 5 5 6.34315 5 8C5 9.65685 6.34315 11 8 11Z"
+                    fill="currentColor"></path>
+                </svg>
+                <svg *ngIf="showConfirmPass" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M16 16H13L10.8368 13.3376C9.96488 13.7682 8.99592 14 8 14C6.09909 14 4.29638 13.1557 3.07945 11.6953L0 8L3.07945 4.30466C3.14989 4.22013 3.22229 4.13767 3.29656 4.05731L0 0H3L16 16ZM5.35254 6.58774C5.12755 7.00862 5 7.48941 5 8C5 9.65685 6.34315 11 8 11C8.29178 11 8.57383 10.9583 8.84053 10.8807L5.35254 6.58774Z"
+                    fill="currentColor"></path>
+                  <path d="M16 8L14.2278 10.1266L7.63351 2.01048C7.75518 2.00351 7.87739 2 8 2C9.90091 2 11.7036 2.84434 12.9206 4.30466L16 8Z"
+                    fill="currentColor"></path>
+                </svg>
+              </button>
+            </div>
+            <span class="text-red-500 text-xs mt-1 block" *ngIf="isInvalid('confirmPassword')">
+              {{ getError('confirmPassword') }}
+            </span>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            class="w-full bg-[#638ECB] hover:bg-[#395886] text-white font-medium py-2.5 mt-3 transition rounded-md"
+            [disabled]="loading"
+            [class.opacity-70]="loading"
+          >
+            <span *ngIf="!loading">Create Account</span>
+            <span *ngIf="loading">Creating...</span>
+          </button>
+
+          <!-- Already have account -->
+          <p class="text-center text-sm text-[#395886]/70 mt-3">
+            Already have an account?
+            <a routerLink="/signin" class="text-[#638ECB] hover:text-[#395886] font-medium">Sign In</a>
+          </p>
+        </form>
+
+      </div>
+    </div>
+
   </div>
 </div>
+``
