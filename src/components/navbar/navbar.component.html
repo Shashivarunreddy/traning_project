@@ -1,27 +1,30 @@
 <nav
-  class="sticky top-2 z-50 mx-auto max-w-6xl rounded-2xl p-2 bg-white/10 backdrop-blur-xl border border-white/20 shadow-lg shadow-black/20 ring-1 ring-white/10 text-black"
+  class="fixed top-0 left-0 w-full z-50 shadow-md flex items-center h-16 px-4 md:px-8"
+  style="background-color: var(--blue-500); color: var(--blue-50);"
 >
-  <div class="flex items-center justify-between px-4">
-    <div class="text-2xl md:text-3xl font-semibold tracking-wide select-none">
-      <a routerLink="/" routerLinkActive="font-semibold text-black"
-        >IdeaBoard</a
-      >
+  <div class="flex items-center justify-between w-full max-w-7xl mx-auto">
+    <!-- Logo -->
+    <div class="text-2xl font-bold tracking-wide select-none">
+      <a routerLink="/" class="hover:text-(--blue-200) transition-colors duration-200">
+        IdeaBoard
+      </a>
     </div>
 
-    <ul class="flex items-center gap-6 md:gap-8">
+    <!-- Navigation Links -->
+    <ul class="hidden md:flex items-center gap-8">
       <li *ngIf="isManager()">
         <a
           routerLink="/manager/dashboard"
-          routerLinkActive="font-semibold text-black"
-          class="text-sm md:text-base text-black/80 hover:text-black transition-colors"
+          routerLinkActive="font-semibold text-white"
+          class="text-(--blue-100) hover:text-white transition-colors"
           >Dashboard</a
         >
       </li>
       <li *ngIf="isManager()">
         <a
           routerLink="/manager/decision"
-          routerLinkActive="font-semibold text-black"
-          class="text-sm md:text-base text-black/80 hover:text-black transition-colors"
+          routerLinkActive="font-semibold text-white"
+          class="text-(--blue-100) hover:text-white transition-colors"
           >Decision</a
         >
       </li>
@@ -29,128 +32,142 @@
       <li *ngIf="isAdmin()">
         <a
           routerLink="/admin/dashboard"
-          routerLinkActive="font-semibold text-black"
-          class="text-sm md:text-base text-black/80 hover:text-black transition-colors"
+          routerLinkActive="font-semibold text-white"
+          class="text-(--blue-100) hover:text-white transition-colors"
           >Admin Dashboard</a
         >
       </li>
       <li *ngIf="isAdmin()">
         <a
           routerLink="/admin/categories"
-          routerLinkActive="font-semibold text-black"
-          class="text-sm md:text-base text-black/80 hover:text-black transition-colors"
-          >Category Management</a
+          routerLinkActive="font-semibold text-white"
+          class="text-(--blue-100) hover:text-white transition-colors"
+          >Categories</a
         >
       </li>
 
       <li *ngIf="isEmployee()">
         <a
           routerLink="/employee/dashboard"
-          routerLinkActive="font-semibold text-black"
+          routerLinkActive="font-semibold text-white"
           [routerLinkActiveOptions]="{ exact: true }"
-          class="text-sm md:text-base text-black/80 hover:text-black transition-colors"
+          class="text-(--blue-100) hover:text-white transition-colors"
           >Dashboard</a
         >
       </li>
       <li *ngIf="isEmployee()">
         <a
           routerLink="/employee/createidea"
-          routerLinkActive="font-semibold text-black"
+          routerLinkActive="font-semibold text-white"
           [routerLinkActiveOptions]="{ exact: true }"
-          class="text-sm md:text-base text-black/80 hover:text-black transition-colors"
+          class="text-(--blue-100) hover:text-white transition-colors"
           >Create Idea</a
         >
       </li>
 
+      <!-- Fallback for generic roles -->
       <li *ngIf="!isEmployee() && !isManager() && !isAdmin()">
         <a
           routerLink="/employee/dashboard"
-          routerLinkActive="font-semibold text-black"
-          class="text-sm md:text-base text-black/80 hover:text-black transition-colors"
+          routerLinkActive="font-semibold text-white"
+          class="text-(--blue-100) hover:text-white transition-colors"
           >Dashboard</a
         >
       </li>
     </ul>
 
-    <div
-      class="relative"
-      (click)="toggleDropdown()"
-      data-dropdown-root
-      *ngIf="isLoggedIn()"
-    >
+    <!-- User Profile / Login -->
+    <div class="flex items-center gap-4">
       <div
-        class="w-10 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white font-bold cursor-pointer select-none"
-        aria-haspopup="true"
-        [attr.aria-expanded]="dropdownOpen()"
-        [attr.title]="userName() || 'Profile'"
-      >
-        {{ userInitial() }}
-      </div>
-
-      <div
-        *ngIf="dropdownOpen()"
-        class="absolute right-0 mt-2 w-44 bg-white rounded-md shadow-lg border border-gray-200 py-1"
-        role="menu"
-        aria-label="Profile Menu"
+        class="relative"
+        (click)="toggleDropdown()"
+        data-dropdown-root
+        *ngIf="isLoggedIn()"
       >
         <div
-          class="px-4 py-2 text-sm text-gray-600 border-b border-gray-100 truncate"
+          class="w-10 h-10 flex items-center justify-center rounded-full font-bold cursor-pointer select-none transition-transform hover:scale-105 shadow-sm"
+          style="background-color: var(--blue-300); color: var(--blue-500);"
+          aria-haspopup="true"
+          [attr.aria-expanded]="dropdownOpen()"
+          [attr.title]="userName() || 'Profile'"
         >
-          {{ userName() || "Guest" }}
+          {{ userInitial() }}
         </div>
-        <a
-          *ngIf="isManager()"
-          routerLink="/manager/dashboard"
-          class="block px-4 py-2 text-sm hover:bg-gray-100"
-          >Manager Dashboard</a
-        >
-        <a
-          *ngIf="isManager()"
-          routerLink="/manager/decision"
-          class="block px-4 py-2 text-sm hover:bg-gray-100"
-          >Decision</a
-        >
-        <a
-          *ngIf="isAdmin()"
-          routerLink="/admin/dashboard"
-          class="block px-4 py-2 text-sm hover:bg-gray-100"
-          >Admin Dashboard</a
-        >
-        <a
-          *ngIf="isAdmin()"
-          routerLink="/admin/categories"
-          class="block px-4 py-2 text-sm hover:bg-gray-100"
-          >Category Management</a
-        >
-        <a
-          *ngIf="isEmployee()"
-          routerLink="/employee/dashboard"
-          class="block px-4 py-2 text-sm hover:bg-gray-100"
-          >Dashboard</a
-        >
-        <a
-          *ngIf="isEmployee()"
-          routerLink="/employee/createidea"
-          class="block px-4 py-2 text-sm hover:bg-gray-100"
-          >Create Idea</a
-        >
-        <button
-          class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
-          (click)="logout()"
-          role="menuitem"
-        >
-          Logout
-        </button>
-      </div>
-    </div>
 
-    <div *ngIf="!isLoggedIn()">
-      <a
-        routerLink="/"
-        class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors"
-      >
-        Login
-      </a>
+        <!-- Dropdown Menu -->
+        <div
+          *ngIf="dropdownOpen()"
+          class="absolute right-0 mt-2 w-48 bg-white rounded shadow-xl border border-gray-100 py-1 text-gray-800 z-50 origin-top-right ring-1 ring-black/5"
+          role="menu"
+          aria-label="Profile Menu"
+        >
+          <div class="px-4 py-3 border-b border-gray-100 bg-(--blue-50)">
+             <p class="text-xs font-semibold text-(--blue-400) uppercase tracking-wider">Signed in as</p>
+             <p class="text-sm font-medium truncate text-gray-900 mt-0.5">{{ userName() | uppercase }} -> {{ userRole() }}</p>
+          </div>
+
+          <a
+            *ngIf="isManager()"
+            routerLink="/manager/dashboard"
+            class="block px-4 py-2 text-sm hover:bg-(--blue-50) hover:text-(--blue-500)"
+            (click)="closeDropdown()"
+            >Manager Dashboard</a
+          >
+          <a
+            *ngIf="isManager()"
+            routerLink="/manager/decision"
+            class="block px-4 py-2 text-sm hover:bg-(--blue-50) hover:text-(--blue-500)"
+            (click)="closeDropdown()"
+            >Decision</a
+          >
+          <a
+            *ngIf="isAdmin()"
+            routerLink="/admin/dashboard"
+            class="block px-4 py-2 text-sm hover:bg-(--blue-50) hover:text-(--blue-500)"
+            (click)="closeDropdown()"
+            >Admin Dashboard</a
+          >
+          <a
+            *ngIf="isAdmin()"
+            routerLink="/admin/categories"
+            class="block px-4 py-2 text-sm hover:bg-(--blue-50) hover:text-(--blue-500)"
+            (click)="closeDropdown()"
+            >Categories</a
+          >
+          <a
+            *ngIf="isEmployee()"
+            routerLink="/employee/dashboard"
+            class="block px-4 py-2 text-sm hover:bg-(--blue-50) hover:text-(--blue-500)"
+            (click)="closeDropdown()"
+            >Dashboard</a
+          >
+          <a
+            *ngIf="isEmployee()"
+            routerLink="/employee/createidea"
+            class="block px-4 py-2 text-sm hover:bg-(--blue-50) hover:text-(--blue-500)"
+            (click)="closeDropdown()"
+            >Create Idea</a
+          >
+          <div class="border-t border-gray-100 my-1"></div>
+          <button
+            class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-700 font-medium"
+            (click)="logout()"
+            role="menuitem"
+          >
+            Sign out
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="!isLoggedIn()">
+        <a
+          routerLink="/"
+          class="px-5 py-2 rounded font-medium shadow-sm transition-all hover:shadow-md hover:bg-(--blue-200)"
+          style="background-color: var(--blue-300); color: var(--blue-500);"
+        >
+          Login
+        </a>
+      </div>
     </div>
   </div>
 </nav>

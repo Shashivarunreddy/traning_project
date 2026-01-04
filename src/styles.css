@@ -8,3 +8,14 @@
   50%, 100% { border-color: transparent; }
 }
 
+/* 
+BLUE color pallet:
+*/
+:root {
+  --blue-50: #F0F3FA;
+  --blue-100: #D5DEEF;
+  --blue-200: #B1C9EF;
+  --blue-300: #8AAEE0;
+  --blue-400: #638ECB;
+  --blue-500: #395886;
+}
