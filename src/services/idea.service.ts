@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Idea, Comment, Vote } from '../models/model';
+import { Idea, Comment, Vote, Review } from '../models/model';
 
 const IDEAS_KEY = 'ideas';
 const COMMENTS_KEY = 'comments';
@@ -11,7 +11,9 @@ const REVIEWS_KEY = 'reviews';
 export class IdeaService {
   private ideas$ = new BehaviorSubject<Idea[]>(this.readIdeas());
 
-  constructor() {}
+  constructor() {
+    this.seedIfEmpty(1);
+  }
 
   private safeRead<T>(key: string): T[] {
     try {
@@ -23,7 +25,7 @@ export class IdeaService {
         const raw = window.localStorage.getItem(key);
         return raw ? JSON.parse(raw) : [];
       }
-    } catch {}
+    } catch { }
     return [];
   }
 
@@ -36,7 +38,7 @@ export class IdeaService {
       ) {
         window.localStorage.setItem(key, JSON.stringify(data));
       }
-    } catch {}
+    } catch { }
   }
 
   private readIdeas(): Idea[] {
@@ -187,25 +189,181 @@ export class IdeaService {
 
   // helper to seed some demo ideas (used if there are none yet)
   seedIfEmpty(currentUserId: number) {
-    if (!this.ideas$.value.length) {
-      this.createIdea({
-        title: 'Make meetings shorter',
-        description:
-          'Try a standing 15 minute meeting to encourage concise updates.',
-        categoryID: 1,
-        submittedByUserID: currentUserId,
+    if (this.ideas$.value.length >= 5) return;
+
+    const dummyIdeas: Partial<Idea>[] = [
+      {
+        title: 'Remote Work Stipend',
+        description: 'Provide a monthly stipend for remote work expenses like internet and electricity.',
+        categoryID: 2, // HR
+        submittedByUserID: 4, // Alice
+        status: 'Approved',
+        category: 'HR'
+      },
+      {
+        title: 'Weekly Tech Talks',
+        description: 'Host weekly sessions where engineers can share knowledge and new technologies.',
+        categoryID: 1, // Engineering? Process? Let's say Process
+        submittedByUserID: 5, // Bob
+        status: 'Approved',
+        category: 'Process'
+      },
+      {
+        title: 'Healthy Snacks in Pantry',
+        description: 'Stock the pantry with healthier options like fruits and nuts instead of just chips.',
+        categoryID: 2, // HR
+        submittedByUserID: 6, // Charlie
         status: 'UnderReview',
-        category: 'Process',
-      });
-      this.createIdea({
-        title: 'Introduce flexible hours',
-        description:
-          'Allow employees to choose flexible start/end times to improve work-life balance.',
-        categoryID: 2,
-        submittedByUserID: currentUserId,
+        category: 'HR'
+      },
+      {
+        title: 'Upgrade CI/CD Pipeline',
+        description: 'Invest in faster build servers to reduce deployment time.',
+        categoryID: 3, // Engineering/Tech
+        submittedByUserID: 4, // Alice
         status: 'UnderReview',
-        category: 'HR',
-      });
+        category: 'Technology'
+      },
+      {
+        title: 'Quarterly Hackathons',
+        description: 'Organize 2-day hackathons every quarter to foster innovation.',
+        categoryID: 1, // Process
+        submittedByUserID: 5, // Bob
+        status: 'Rejected',
+        category: 'Process'
+      },
+      {
+        title: 'Pet Friendly Office',
+        description: 'Allow well-behaved pets in the office on Fridays.',
+        categoryID: 2, // HR
+        submittedByUserID: 7, // Diana
+        status: 'Rejected',
+        category: 'HR'
+      },
+      {
+        title: 'Mentorship Program',
+        description: 'Formal mentorship program connecting seniors with juniors.',
+        categoryID: 2, // HR
+        submittedByUserID: 8, // Evan
+        status: 'Approved',
+        category: 'HR'
+      },
+      {
+        title: 'Better Coffee Machines',
+        description: 'Replace the old coffee machines with bean-to-cup ones.',
+        categoryID: 4, // Operations?
+        submittedByUserID: 9, // Fiona
+        status: 'UnderReview',
+        category: 'Facilities'
+      },
+      {
+        title: 'Standing Desks for All',
+        description: 'Provide adjustable standing desks for every employee.',
+        categoryID: 4, // Facilities
+        submittedByUserID: 10, // George
+        status: 'UnderReview',
+        category: 'Facilities'
+      },
+      {
+        title: 'Team Building Offsites',
+        description: 'Annual offsite retreats for team bonding.',
+        categoryID: 2, // HR
+        submittedByUserID: 6, // Charlie
+        status: 'Approved',
+        category: 'HR'
+      },
+      {
+        title: 'Learning Budget Increase',
+        description: 'Increase the annual learning and development budget per employee.',
+        categoryID: 2, // HR
+        submittedByUserID: 4, // Alice
+        status: 'UnderReview',
+        category: 'HR'
+      },
+      {
+        title: 'Quiet Zones',
+        description: 'Designate specific areas in the office as strict quiet zones.',
+        categoryID: 4, // Facilities
+        submittedByUserID: 8, // Evan
+        status: 'Approved',
+        category: 'Facilities'
+      },
+      {
+        title: 'Charity Matching',
+        description: 'Company matches employee donations to registered charities.',
+        categoryID: 2, // HR
+        submittedByUserID: 7, // Diana
+        status: 'UnderReview',
+        category: 'HR'
+      },
+      {
+        title: 'Recycling Program',
+        description: 'Implement a comprehensive recycling program in the office.',
+        categoryID: 4, // Facilities
+        submittedByUserID: 9, // Fiona
+        status: 'Approved',
+        category: 'Facilities'
+      },
+      {
+        title: 'Gym Membership Subsidy',
+        description: 'Offer 50% subsidy for local gym memberships.',
+        categoryID: 2, // HR
+        submittedByUserID: 5, // Bob
+        status: 'Rejected',
+        category: 'HR'
+      }
+    ];
+
+    // Create Ideas
+    const createdIdeas: Idea[] = [];
+    for (const idea of dummyIdeas) {
+      createdIdeas.push(this.createIdea(idea));
+    }
+
+    // Add Comments
+    this.addComment({ ideaID: createdIdeas[0].ideaID, userID: 2, userName: 'John Manager', text: 'Great idea, fully support this.', createdDate: new Date().toISOString() });
+    this.addComment({ ideaID: createdIdeas[0].ideaID, userID: 3, userName: 'Sarah HR', text: 'We are looking into the budget for this.', createdDate: new Date().toISOString() });
+    this.addComment({ ideaID: createdIdeas[2].ideaID, userID: 4, userName: 'Alice Developer', text: 'Yes please! More fruits.', createdDate: new Date().toISOString() });
+    this.addComment({ ideaID: createdIdeas[3].ideaID, userID: 2, userName: 'John Manager', text: 'This is critical for our velocity.', createdDate: new Date().toISOString() });
+    this.addComment({ ideaID: createdIdeas[5].ideaID, userID: 3, userName: 'Sarah HR', text: 'Concerns about allergies need to be addressed first.', createdDate: new Date().toISOString() });
+
+    // Add Votes (Randomize)
+    const voters = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    for (const idea of createdIdeas) {
+      // Random upvotes
+      const upvoteCount = Math.floor(Math.random() * 5);
+      for (let i = 0; i < upvoteCount; i++) {
+        const voter = voters[Math.floor(Math.random() * voters.length)];
+        this.vote(idea.ideaID, voter, 'Upvote');
+      }
+      // Random downvotes
+      if (Math.random() > 0.7) {
+        const voter = voters[Math.floor(Math.random() * voters.length)];
+        this.vote(idea.ideaID, voter, 'Downvote');
+      }
+    }
+
+    // Add Reviews (for Approved/Rejected)
+    for (const idea of createdIdeas) {
+      if (idea.status === 'Approved') {
+        this.addReview({
+          ideaID: idea.ideaID,
+          reviewerID: 2, // John Manager
+          reviewerName: 'John Manager',
+          feedback: 'Approved after quarterly review.',
+          decision: 'Approve',
+          reviewDate: new Date().toISOString()
+        });
+      } else if (idea.status === 'Rejected') {
+        this.addReview({
+          ideaID: idea.ideaID,
+          reviewerID: 2, // John Manager
+          reviewerName: 'John Manager',
+          feedback: 'Budget constraints do not allow this at the moment.',
+          decision: 'Reject',
+          reviewDate: new Date().toISOString()
+        });
+      }
     }
   }
 }
