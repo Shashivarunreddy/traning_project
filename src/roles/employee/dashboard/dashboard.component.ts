@@ -34,8 +34,6 @@ export class DashboardComponent implements OnInit {
       if (!this.selected && this.ideas.length) {
       }
     });
-
-    this.ideaService.seedIfEmpty(this.currentUser?.userID || 0);
   }
 
   loadCurrentUser() {

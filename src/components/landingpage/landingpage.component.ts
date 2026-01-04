@@ -1,14 +1,17 @@
 import { TypewriterDirective } from './typewriter.directive';
 
-import { Component, OnInit, ElementRef,NgZone,AfterViewInit,OnDestroy } from '@angular/core';
+import { Component, OnInit, ElementRef, NgZone, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../../services/user.service';
+import { CategoryService } from '../../services/category.service';
+import { IdeaService } from '../../services/idea.service';
 
 
 @Component({
   selector: 'app-landingpage',
   standalone: true,
-  imports: [CommonModule, RouterModule,TypewriterDirective], // <-- NgIf, ng-template, routerLink
+  imports: [CommonModule, RouterModule, TypewriterDirective], // <-- NgIf, ng-template, routerLink
   templateUrl: './landingpage.component.html',
   styleUrls: ['./landingpage.component.css'],
 })
@@ -33,7 +36,7 @@ export class LandingpageComponent implements OnInit {
     {
       title: 'Manager',
       icon: '/Manager.svg',
-      bgv:'/light-bulb.svg',
+      bgv: '/light-bulb.svg',
       description:
         'Review, manage, and track ideas from your team members. Make decisions and drive innovation.',
       features: [
@@ -65,9 +68,18 @@ export class LandingpageComponent implements OnInit {
       decorated: false
     },
   ];
-  constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  constructor(
+    private router: Router,
+    // Inject services to trigger instantiation and auto-seeding
+    private userService: UserService,
+    private categoryService: CategoryService,
+    private ideaService: IdeaService
+  ) { }
+
+  ngOnInit(): void {
+    // Services are now instantiated and will auto-seed data
+  }
 
   navigateTo(route: string): void {
     this.router.navigate([route]);
